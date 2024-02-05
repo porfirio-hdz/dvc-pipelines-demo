@@ -256,6 +256,14 @@ dvc stage add -n data_split \
     python -m src.stages.data_split --config=params.yaml
 ```
 
-The rest of the stages are left as an exercise. You can download the remaining Python scripts from this link.
+The rest of the stages are left as an exercise. You can download the remaining Python scripts from this [link]().
 
- For a completed solution you can refer to this **repo**.
+ For a completed solution you can refer to this [**repo**](https://github.com/porfirio-hdz/dvc-pipelines).
+
+ ### DVC Studio
+
+ Instructions to sign up to [DVC Studio](https://dvc.org/doc/studio) and how to add your first project to DVC Studio can be found [here](https://dvc.org/doc/studio/user-guide/experiments/create-a-project#connect-to-a-git-repository-and-add-a-project).
+
+### More resources
+
+- A complete guide to DVC's model registry features can be found [here](https://dvc.org/doc/start/model-management/model-registry).
