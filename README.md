@@ -82,7 +82,7 @@ if __name__ == '__main__':
 
 ```
 
-Using the code above, we will create a Python script called ```data_prepare.py``` and save it in a new stages folder under the src folder.
+Using the code above, we will create a Python script called ```data_prepare.py``` and save it in a new ```stages``` folder under the ```src``` folder.
 
 - We can now run a ```dvc status``` command. This will tell us that no pipeline is tracked in the project yet.
 
@@ -98,7 +98,7 @@ dvc stage add -n data_prepare \
 
 After running the command above, a ```dvc.yaml``` file is created. You can also check this by running a ```git status```.
 
-To test our first pipeline stage, we can run the commando below:
+To test our first pipeline stage, we can run the command below:
 
 ```dvc repro```
 
