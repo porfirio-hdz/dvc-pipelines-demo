@@ -153,7 +153,8 @@ def featurize(config_path: Text) -> None:
     dataset = pd.read_csv(config['data_load']['dataset_prepare'])
 
     # Drop columns
-    X = dataset.drop(['island', 'year'], axis=1)
+    cols_to_drop = config['featurize']['cols_to_drop']
+    X = dataset.drop(cols_to_drop, axis=1)
 
     logger.info('Extract features')
     # Define categorical features
