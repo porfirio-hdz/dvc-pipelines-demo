@@ -1,0 +1,50 @@
+
+base:
+  random_state: 42
+  log_level: INFO
+
+
+data_load:
+  dataset_csv: 'data/raw/penguins.csv'
+  dataset_prepare: 'data/processed/prepare_penguins.csv'
+
+
+featurize:
+  features_path: 'data/processed/featured_penguins.csv'
+  target_column: species
+  categorical_features: ['sex']
+  cols_to_drop: ['island', 'year', 'bill_length_mm']
+
+
+data_split:
+  test_size: 0.2
+  trainset_path: 'data/processed/train_penguins.csv'
+  testset_path: 'data/processed/test_penguins.csv'
+
+
+train:
+
+  cv: 3
+  estimator_name: rdm_forest
+  estimators:
+    logreg: # sklearn.linear_model.LogisticRegression
+      param_grid: # params of GridSearchCV constructor
+        C: [0.005]
+        max_iter: [100]
+        solver: ['lbfgs']
+        multi_class: ['multinomial']
+    svm: # sklearn.svm.SVC
+      param_grid:
+        C: [0.1, 1.0]
+        kernel: ['rbf', 'linear']
+        gamma: ['scale']
+        degree: [3, 5]
+    rdm_forest:
+      param_grid:
+  model_path: models/model.joblib
+
+
+evaluate:
+  reports_dir: reports
+  metrics_file: 'metrics.json'
+  confusion_matrix_image: 'confusion_matrix.png'
