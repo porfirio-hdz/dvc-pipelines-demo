@@ -94,3 +94,87 @@ stages:
       hash: md5
       md5: 2cc28e83ff333a3ce0d20cb09cc80373
       size: 9004
+  train:
+    cmd: python -m src.stages.train --config=params.yaml
+    deps:
+    - path: data/processed/train_penguins.csv
+      hash: md5
+      md5: 2cc28e83ff333a3ce0d20cb09cc80373
+      size: 9004
+    - path: src/stages/train.py
+      hash: md5
+      md5: b53de68c9440d7260420b7d6ee9db4a7
+      size: 1788
+    params:
+      params.yaml:
+        base:
+          random_state: 42
+          log_level: INFO
+        data_split.trainset_path: data/processed/train_penguins.csv
+        featurize.target_column: species
+        train:
+          cv: 3
+          estimator_name: rdm_forest
+          estimators:
+            logreg:
+              param_grid:
+                C:
+                - 0.005
+                max_iter:
+                - 100
+                solver:
+                - lbfgs
+                multi_class:
+                - multinomial
+            svm:
+              param_grid:
+                C:
+                - 0.1
+                - 1.0
+                kernel:
+                - rbf
+                - linear
+                gamma:
+                - scale
+                degree:
+                - 3
+                - 5
+            rdm_forest:
+              param_grid:
+          model_path: models/model.joblib
+    outs:
+    - path: models/model.joblib
+      hash: md5
+      md5: 045155e1774658b56229fd10a0e3356d
+      size: 827425
+  evaluate:
+    cmd: python -m src.stages.evaluate --config=params.yaml
+    deps:
+    - path: data/processed/test_penguins.csv
+      hash: md5
+      md5: 38d62aff88937b680db4e0c90d36cb59
+      size: 2341
+    - path: models/model.joblib
+      hash: md5
+      md5: 045155e1774658b56229fd10a0e3356d
+      size: 827425
+    - path: src/stages/evaluate.py
+      hash: md5
+      md5: 67089268555e06bbfad5f3eeefc05ebb
+      size: 2525
+    params:
+      params.yaml:
+        base:
+          random_state: 42
+          log_level: INFO
+        data_split.testset_path: data/processed/test_penguins.csv
+        evaluate:
+          reports_dir: reports
+          metrics_file: metrics.json
+          confusion_matrix_image: confusion_matrix.png
+        featurize.target_column: species
+    outs:
+    - path: reports/metrics.json
+      hash: md5
+      md5: c177f3dabf1b9696dc8093b002bbdc6f
+      size: 32

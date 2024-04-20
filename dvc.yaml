@@ -32,3 +32,45 @@ stages:
     outs:
     - data/processed/test_penguins.csv
     - data/processed/train_penguins.csv
+  train:
+    cmd: python -m src.stages.train --config=params.yaml
+    deps:
+    - data/processed/train_penguins.csv
+    - src/stages/train.py
+    outs:
+    - models/model.joblib
+    params:
+    - base
+    - data_split.trainset_path
+    - featurize.target_column
+    - train
+
+  evaluate:
+    cmd: python -m src.stages.evaluate --config=params.yaml
+    deps:
+    - data/processed/test_penguins.csv
+    - models/model.joblib
+    - src/stages/evaluate.py
+    params:
+    - base
+    - data_split.testset_path
+    - evaluate
+    - featurize.target_column
+    #outs:
+    #- reports/confusion_matrix.png
+    metrics:
+    - reports/metrics.json:
+        cache: false
+artifacts:
+  penguins_classifier:
+    path: models/model.joblib
+    type: model
+    desc: This is a penguins classifier.
+    labels:
+    - cv
+    - classification
+metrics:
+- dvclive/metrics.json
+plots:
+- dvclive/plots/metrics:
+    x: step
