@@ -1,0 +1,21 @@
+stages:
+  data_prepare:
+    cmd: python -m src.stages.data_prepare --config=params.yaml
+    deps:
+    - src/stages/data_prepare.py
+    params:
+    - base
+    - data_load
+    outs:
+    - data/processed/prepare_penguins.csv
+  featurize:
+    cmd: python -m src.stages.featurize --config=params.yaml
+    deps:
+    - data/processed/prepare_penguins.csv
+    - src/stages/featurize.py
+    params:
+    - base
+    - data_load
+    - featurize
+    outs:
+    - data/processed/featured_penguins.csv
