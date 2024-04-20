@@ -257,7 +257,7 @@ dvc stage add -n data_split \
     python -m src.stages.data_split --config=params.yaml
 ```
 
-The rest of the stages are left as an exercise. You can download the remaining Python scripts from this [link]().
+The rest of the stages are left as an exercise. You can download the remaining Python scripts from this [link](https://drive.google.com/drive/folders/1mWFYPi9QjJkpLIK-OX8fcg2n-uTxdDoK?usp=sharing).
 
  For a completed solution you can refer to this [**repo**](https://github.com/porfirio-hdz/dvc-pipelines).
 
