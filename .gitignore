@@ -7,8 +7,8 @@
 
 # Project
 #data/*
-models/*
-reports/*
+#models/*
+#reports/*
 
 # Python
 __pycache__
