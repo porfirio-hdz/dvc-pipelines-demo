@@ -60,3 +60,16 @@ stages:
     metrics:
     - reports/metrics.json:
         cache: false
+artifacts:
+  penguins_classifier:
+    path: models/model.joblib
+    type: model
+    desc: This is a penguins classifier.
+    labels:
+    - cv
+    - classification
+metrics:
+- dvclive/metrics.json
+plots:
+- dvclive/plots/metrics:
+    x: step
