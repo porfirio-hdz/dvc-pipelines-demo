@@ -32,3 +32,31 @@ stages:
     outs:
     - data/processed/test_penguins.csv
     - data/processed/train_penguins.csv
+  train:
+    cmd: python -m src.stages.train --config=params.yaml
+    deps:
+    - data/processed/train_penguins.csv
+    - src/stages/train.py
+    params:
+    - base
+    - data_split.trainset_path
+    - featurize.target_column
+    - train
+    outs:
+    - models/model.joblib
+  evaluate:
+    cmd: python -m src.stages.evaluate --config=params.yaml
+    deps:
+    - data/processed/test_penguins.csv
+    - models/model.joblib
+    - src/stages/evaluate.py
+    params:
+    - base
+    - data_split.testset_path
+    - evaluate
+    - featurize.target_column
+    #outs:
+    #- reports/confusion_matrix.png
+    metrics:
+    - reports/metrics.json:
+        cache: false
