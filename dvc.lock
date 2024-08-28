@@ -47,19 +47,18 @@ stages:
           cols_to_drop:
           - island
           - year
-          - bill_length_mm
     outs:
     - path: data/processed/featured_penguins.csv
       hash: md5
-      md5: 1cd2ac6b3b204827b86cab1aac229d34
-      size: 11269
+      md5: 562cf4987f5780b7cba959440719757e
+      size: 12946
   data_split:
     cmd: python -m src.stages.data_split --config=params.yaml
     deps:
     - path: data/processed/featured_penguins.csv
       hash: md5
-      md5: 1cd2ac6b3b204827b86cab1aac229d34
-      size: 11269
+      md5: 562cf4987f5780b7cba959440719757e
+      size: 12946
     - path: src/stages/data_split.py
       hash: md5
       md5: 8dfe312ff90160af2ff57f15ac8cb829
@@ -84,23 +83,22 @@ stages:
           cols_to_drop:
           - island
           - year
-          - bill_length_mm
     outs:
     - path: data/processed/test_penguins.csv
       hash: md5
-      md5: 38d62aff88937b680db4e0c90d36cb59
-      size: 2341
+      md5: 1a3b22fda4b559b76792c6844b4cbf1f
+      size: 2688
     - path: data/processed/train_penguins.csv
       hash: md5
-      md5: 2cc28e83ff333a3ce0d20cb09cc80373
-      size: 9004
+      md5: 8a664ee1af061e4c54bc1acd0a34f013
+      size: 10346
   train:
     cmd: python -m src.stages.train --config=params.yaml
     deps:
     - path: data/processed/train_penguins.csv
       hash: md5
-      md5: 2cc28e83ff333a3ce0d20cb09cc80373
-      size: 9004
+      md5: 8a664ee1af061e4c54bc1acd0a34f013
+      size: 10346
     - path: src/stages/train.py
       hash: md5
       md5: b53de68c9440d7260420b7d6ee9db4a7
@@ -145,19 +143,19 @@ stages:
     outs:
     - path: models/model.joblib
       hash: md5
-      md5: 045155e1774658b56229fd10a0e3356d
-      size: 827425
+      md5: a8ee968217d959daddae28e15a00eb6b
+      size: 306833
   evaluate:
     cmd: python -m src.stages.evaluate --config=params.yaml
     deps:
     - path: data/processed/test_penguins.csv
       hash: md5
-      md5: 38d62aff88937b680db4e0c90d36cb59
-      size: 2341
+      md5: 1a3b22fda4b559b76792c6844b4cbf1f
+      size: 2688
     - path: models/model.joblib
       hash: md5
-      md5: 045155e1774658b56229fd10a0e3356d
-      size: 827425
+      md5: a8ee968217d959daddae28e15a00eb6b
+      size: 306833
     - path: src/stages/evaluate.py
       hash: md5
       md5: 67089268555e06bbfad5f3eeefc05ebb
@@ -176,5 +174,5 @@ stages:
     outs:
     - path: reports/metrics.json
       hash: md5
-      md5: c177f3dabf1b9696dc8093b002bbdc6f
-      size: 32
+      md5: 3329ba1a6b18407f725a1e25a5500560
+      size: 17
