@@ -1,0 +1,22 @@
+schema: '2.0'
+stages:
+  data_prepare:
+    cmd: python -m src.stages.data_prepare --config=params.yaml
+    deps:
+    - path: src/stages/data_prepare.py
+      hash: md5
+      md5: 2f917d7b78d96ce171ca8a112f02b5c5
+      size: 943
+    params:
+      params.yaml:
+        base:
+          random_state: 42
+          log_level: INFO
+        data_load:
+          dataset_csv: data/raw/penguins.csv
+          dataset_prepare: data/processed/prepare_penguins.csv
+    outs:
+    - path: data/processed/prepare_penguins.csv
+      hash: md5
+      md5: 320d99d6d2de20f16f67340a1e89e075
+      size: 16286
