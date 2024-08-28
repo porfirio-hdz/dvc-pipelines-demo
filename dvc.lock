@@ -20,3 +20,36 @@ stages:
       hash: md5
       md5: 320d99d6d2de20f16f67340a1e89e075
       size: 16286
+  featurize:
+    cmd: python -m src.stages.featurize --config=params.yaml
+    deps:
+    - path: data/processed/prepare_penguins.csv
+      hash: md5
+      md5: 320d99d6d2de20f16f67340a1e89e075
+      size: 16286
+    - path: src/stages/featurize.py
+      hash: md5
+      md5: 047c8d959e079e3c9cb854a8c9dcd4ef
+      size: 1849
+    params:
+      params.yaml:
+        base:
+          random_state: 42
+          log_level: INFO
+        data_load:
+          dataset_csv: data/raw/penguins.csv
+          dataset_prepare: data/processed/prepare_penguins.csv
+        featurize:
+          features_path: data/processed/featured_penguins.csv
+          target_column: species
+          categorical_features:
+          - sex
+          cols_to_drop:
+          - island
+          - year
+          - bill_length_mm
+    outs:
+    - path: data/processed/featured_penguins.csv
+      hash: md5
+      md5: 1cd2ac6b3b204827b86cab1aac229d34
+      size: 11269
